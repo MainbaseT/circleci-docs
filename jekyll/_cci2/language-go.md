@@ -5,8 +5,7 @@ description: "Set up CI/CD for a Go project on CircleCI using orbs"
 contentTags:
   platform:
   - Cloud
-  - Server v4.x
-  - Server v3.x
+  - Server v4+
 ---
 
 {% include snippets/language-guided-tour-cards.md lang="go" demo_url_slug="go" demo_branch="main" guide_completion_time="15" sample_completion_time="10" %}
@@ -146,7 +145,7 @@ workflows:
 ### 6. Conclusion
 {: #conclusion }
 
-You just set up a Go app to build on CircleCI, and deploy to Heroku. Check out your project’s [pipeline page]({{site.baseurl}}/project-build/#overview) to see how this looks when building on CircleCI.
+You just set up a Go app to build on CircleCI, and deploy to Heroku. Check out your project’s [pipeline page]({{site.baseurl}}/pipelines/) to see how this looks when building on CircleCI.
 
 **Deploy options?** For alternative deployment targets, search the [orb registry](https://circleci.com/developer/orbs), where you will find integrations such as [Kubernetes](https://circleci.com/developer/orbs/orb/circleci/kubernetes), [AWS ECS](https://circleci.com/developer/orbs/orb/circleci/aws-ecs), [GCP GKE](https://circleci.com/developer/orbs/orb/circleci/gcp-gke), and more.
 {: class="alert alert-info"}

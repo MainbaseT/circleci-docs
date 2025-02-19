@@ -8,8 +8,7 @@ order: 1
 contentTags:
   platform:
   - Cloud
-  - Server v4.x
-  - Server v3.x
+  - Server v4+
 ---
 
 * TOC
@@ -268,12 +267,12 @@ For more information, see the [Orb Publishing Process]({{site.baseurl}}/creating
 
 List your available orbs using the CLI:
 
-To list **[public]({{site.baseurl}}/orb-intro/#public-orbs)** orbs:
+To list **[public]({{site.baseurl}}/orb-intro/#public-or-private)** orbs:
 ```shell
 circleci orb list <my-namespace>
 ```
 
-To list **[private]({{site.baseurl}}/orb-intro/#private-orbs)** orbs:
+To list **[private]({{site.baseurl}}/orb-intro/#public-or-private)** orbs:
 ```shell
 circleci orb list <my-namespace> --private
 ```

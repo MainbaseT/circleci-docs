@@ -6,8 +6,7 @@ description: "Conceptual Overview for Orbs"
 categories: [getting-started]
 verison:
 - Cloud
-- Server v4.x
-- Server v3.x
+- Server v4+
 ---
 
 * TOC
@@ -31,7 +30,7 @@ As an example, the AWS S3 orb includes a _command_ to copy a file or object to a
 version: 2.1
 
 orbs:
-  aws-s3: circleci/aws-s3@x.y.z
+  aws-s3: circleci/aws-s3@4.1.0
 
 jobs:
   build:
@@ -53,7 +52,7 @@ See the [AWS-S3 Orb](https://circleci.com/developer/orbs/orb/circleci/aws-s3#com
 ### Executors
 {: #executors }
 
-Executors are parameterized execution environments in which [jobs]({{site.baseurl}}/orb-concepts/#jobs) can be run. CircleCI provides multiple [executor options]({{site.baseurl}}/configuration-reference/#docker--machine--macos--windows-executor):
+Executors are parameterized execution environments in which [jobs]({{site.baseurl}}/orb-concepts/#jobs) can be run. CircleCI provides multiple [executor options]({{site.baseurl}}/configuration-reference/#executor-job):
 
 - Docker
 - macOS
@@ -103,7 +102,7 @@ parameters:
 
 In the [Node orb](https://circleci.com/developer/orbs/orb/circleci/node), for example, a parameterized Docker-based executor is provided, through which you can set the Docker tag. This provides a simple way to test applications against any version of Node.js when used with the Node orb's [test job](https://circleci.com/developer/orbs/orb/circleci/node#usage-run_matrix_testing).
 
-For more information, see the guide to [Authoring Reusable Executors]({{site.baseurl}}/reusing-config/#authoring-reusable-executors) and the registry page for the [Node Orb](https://circleci.com/developer/orbs/orb/circleci/node#executors-default).
+For more information, see the guide to [Authoring Reusable Executors]({{site.baseurl}}/reusing-config/#authoring-reusable-executors) and example for the [`executor` parameter type](/docs/reusing-config/#executor). Also, see the registry page for the [Node Orb](https://circleci.com/developer/orbs/orb/circleci/node#executors-default).
 
 ### Jobs
 {: #jobs }
@@ -214,10 +213,10 @@ Production orbs are immutable and can be found on the [Orb Registry](https://cir
 
 Development orbs are temporary overwrite-able orb tag versions, useful for rapid development and testing prior to deploying a semver deployed production change.
 
+- A Development orb can only be published if the orb has an initial semver deployed production version
 - Development orbs are mutable, can be overwritten, and automatically expire 90 days after they are published
 - Version string must begin with `dev:` followed by any string, for example, `<namespace>/<orb>@dev:my-feature-branch`
 - Development orbs may be published by any member of the namespace organization
-- Will not appear on the Orb Registry
 - Open source, released under [MIT license](https://circleci.com/developer/orbs/licensing).
 - Available via CircleCI CLI (if the development tag name is known)
 

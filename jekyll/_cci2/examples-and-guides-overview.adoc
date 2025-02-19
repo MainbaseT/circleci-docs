@@ -2,10 +2,9 @@
 contentTags:
   platform:
   - Cloud
-  - Server v4.x
-  - Server v3.x
+  - Server v4+
 ---
-= Examples and Guides Overview
+= Examples and guides overview
 :page-layout: classic-docs
 :page-liquid:
 :page-description: Resources for learning CircleCI using examples.

@@ -2,8 +2,7 @@
 contentTags:
   platform:
   - Cloud
-  - Server v4.x
-  - Server v3.x
+  - Server v4+
 ---
 = Automated testing in CircleCI
 :page-description: An overview of setting up testing automation, integration, and analytics.
@@ -48,6 +47,8 @@ jobs:
 Depending on your requirements, you might have more complex workflows that orchestrate multiple jobs. For example, you might have several concurrent jobs for building and testing your project in separate Linux, macOS, and Windows execution environments. You might also want to require that a test job is run only if a preceding build job is successful.
 
 For a more in-depth look at workflows functionality, visit the link:/docs/workflows[Workflows] page. You can also refer to the link:/docs/sample-config[Sample configuration] page for more workflow examples.
+
+If you need to restrict the connections allowed in your test jobs, consider enabling xref:ip-ranges#[IP ranges]. This enables CircleCI jobs to go through a set of well-defined IP address ranges.
 
 [#orbs]
 == Use orbs to simplify testing
@@ -95,7 +96,7 @@ More details on `store_artifacts` can be found in the xref:configuration-referen
 For more detailed examples of storing test data with different testing frameworks, refer to the xref:collect-test-data#[Collect test data] page.
 
 [#timing-tab]
-== Timing Tab
+== Timing tab
 
 When xref:parallelism-faster-jobs#[parallelism and test splitting] are enabled, CircleCI provides a bird's-eye view into the timing of each parallel run in the *Timing* tab in the *Job Details* UI.
 
@@ -104,9 +105,9 @@ image::{{site.baseurl}}/assets/img/docs/parallel-runs-timing-tests.png[Timing ta
 The Timing tab lets you identify which steps are taking the longest amount of time in a given parallel run so that you can make targeted improvements to reduce overall runtime.
 
 [#test-insights]
-== Test Insights
+== Test insights
 
-The test Insights feature is not currently supported for GitLab or GitHub App projects. To find out if you authorized through the GitHub OAuth app or the CircleCI GitHub App, see the xref:github-apps-integration#[GitHub App integration] page.
+include::../_includes/partials/notes/standalone-unsupported.adoc[This feature is not supported for GitLab, GitHub App or Bitbucket Data Center]
 
 When test results are stored, test analytics also become available on the *Tests* tab of the *Insights* page in the web app. Metrics for flaky tests, tests with the lowest success rates, and slow tests help you identify opportunities to optimize pipelines as well as further improve your testing strategy.
 

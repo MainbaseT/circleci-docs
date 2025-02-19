@@ -2,8 +2,7 @@
 contentTags:
   platform:
   - Cloud
-  - Server v4.x
-  - Server v3.x
+  - Server v4+
 ---
 = Storing build artifacts
 :page-description: Example of uploading artifacts created during a build
@@ -36,6 +35,8 @@ By default, artifact storage duration is set to 30 days. This can be customized 
 For information on managing network and storage usage, see the xref:persist-data#[Persisting Data] page.
 
 NOTE: Uploaded artifact filenames are encoded using the link:https://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html[Java URLEncoder]. Keep this in mind if you are expecting to find artifacts at a given path within the application.
+
+If you need to restrict the connections allowed in your jobs, consider enabling xref:ip-ranges#[IP ranges]. This enables CircleCI jobs to go through a set of well-defined IP address ranges.
 
 [#uploading-artifacts]
 == Uploading artifacts
@@ -79,7 +80,7 @@ Currently, `store_artifacts` has two keys: `path` and `destination`.
 [#uploading-core-files]
 == Uploading core files
 
-This section describes how to get link:http://man7.org/linux/man-pages/man5/core.5.html[core dumps] and push them as artifacts for inspection and debugging. The following example creates a short C program that runs link:http://man7.org/linux/man-pages/man3/abort.3.html[`abort(3)`] to crash the program.
+This section describes how to get link:https://man7.org/linux/man-pages/man5/core.5.html[core dumps] and push them as artifacts for inspection and debugging. The following example creates a short C program that runs link:https://man7.org/linux/man-pages/man3/abort.3.html[`abort(3)`] to crash the program.
 
 . Create a `Makefile` with the following lines:
 +
@@ -139,6 +140,8 @@ When CircleCI runs a job, a link to the core dump file appears in the *Artifacts
 [#downloading-all-artifacts-for-a-build-on-circleci]
 == Downloading all artifacts for a build on CircleCI
 
+include::../_includes/partials/notes/server-api-examples.adoc[]
+
 To download your artifacts with `curl`, follow the steps below.
 
 . xref:managing-api-tokens#creating-a-personal-api-token[Create a personal API token] and copy it to a clipboard.
@@ -164,6 +167,26 @@ Similarly, if you want to download the _latest_ artifacts of a build, replace th
 [,shell]
 ----
 curl -H "Circle-Token: <circle-token>" https://circleci.com/api/v1.1/project/:vcs-type/:username/:project/latest/artifacts
+----
+
+If you need to download all artifacts from a workflow at the same time you can use the following method. You will need your workflow ID.  Copy your workflow ID from the end of the URL when viewing the workflow page in the CircleCI web app:
+
+[,shell]
+----
+# Set an environment variable for your API token.
+export CIRCLE_TOKEN=':your_token'
+
+# `curl` retrieve the list of jobs in the workflow,
+# then `jq` lists from the result and filter the job identifiers,
+# then `xargs`/`curl` generates the jobs URLs including the jobs identifiers,
+# then the result is piped into `grep` to extract the URLs,
+# finally, `wget` is used to download the artifacts to the current directory in your terminal.
+
+curl --silent --request GET --url https://circleci.com/api/v2/workflow/:workflow_id/job --header "Circle-Token: $CIRCLE_TOKEN" \
+  | jq '.items[].job_number' \
+  | xargs -I {} curl --silent --request GET --url 'https://circleci.com/api/v2/project/:vcs/:org/:project/{}/artifacts' --header "Circle-Token: $CIRCLE_TOKEN" \
+  | grep -o -E 'https://([^"]*)' \
+  | wget --verbose --header "Circle-Token: $CIRCLE_TOKEN" --no-verbose --input-file -
 ----
 
 You can read more about using CircleCI's API to interact with artifacts in our link:https://circleci.com/docs/api/v1/#artifacts[API reference guide].
@@ -224,26 +247,30 @@ xref:configuration-reference#the-when-attribute[The `when` attribute] lets you f
 
 [,yaml]
 ----
-steps:
-  - run:
-      name: Testing application
-      command: make test
-      shell: /bin/bash
-      working_directory: ~/my-app
-      no_output_timeout: 30m
-      environment:
-        FOO: bar
+jobs:
+  build:
+    docker:
+      - image: cimg/base:2024.01
+    steps:
+      - run:
+          name: Testing application
+          command: make test
+          shell: /bin/bash
+          working_directory: ~/my-app
+          no_output_timeout: 30m
+          environment:
+            FOO: bar
 
-  - run: echo 127.0.0.1 devhost | sudo tee -a /etc/hosts
+      - run: echo 127.0.0.1 devhost | sudo tee -a /etc/hosts
 
-  - run: |
-      sudo -u root createuser -h localhost --superuser ubuntu &&
-      sudo createdb -h localhost test_db
+      - run: |
+          sudo -u root createuser -h localhost --superuser ubuntu &&
+          sudo createdb -h localhost test_db
 
-  - run:
-      name: Upload Failed Tests
-      command: curl --data fail_tests.log http://example.com/error_logs
-      when: on_fail
+      - run:
+          name: Upload Failed Tests
+          command: curl --data fail_tests.log http://example.com/error_logs
+          when: on_fail
 ----
 
 [#next-steps]

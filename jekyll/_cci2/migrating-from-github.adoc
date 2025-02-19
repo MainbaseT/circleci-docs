@@ -2,7 +2,7 @@
 contentTags:
   platform:
   - Cloud
-  - Server 3.x
+  - Server v4+
 ---
 = Migrate from GitHub Actions
 :page-layout: classic-docs
@@ -12,6 +12,8 @@ contentTags:
 :experimental:
 
 This document provides an overview of how to migrate from GitHub Actions to CircleCI.
+
+TIP: The link:https://circleci.com/developer/tools/configTranslator[CircleCI configuration translator] provides a way to convert your GitHub Actions or GitLab config into a CircleCI `config.yml` file. The configuration translator is currently in open preview.
 
 [#concepts]
 == Concepts
@@ -75,7 +77,7 @@ workflows:
 === Actions vs. orbs
 "Actions" in GitHub are reusable commands or tasks to run inside a job. However, they are written for execution inside a Docker container or coded as individual steps using JavaScript. This adds additional work and limits the scope in which they can be applied.
 
-CircleCI offers similar functionality in our https://circleci.com/docs/orb-intro/#section=configuration[orbs]. The primary difference is that CircleCI orbs are just packaged, reusable YAML, so you can orbify reusable jobs, executors, or commands, and use them however you see fit in any of your jobs or workflows.
+CircleCI offers similar functionality in our xref:orb-intro#[orbs]. The primary difference is that CircleCI orbs are just packaged, reusable YAML, so you can create orbs with reusable jobs, executors, or commands, and use them however you see fit in any of your jobs or workflows.
 
 GitHub offers browsing of Actions in their Marketplace; CircleCI has an https://circleci.com/developer/orbs[Orb Registry] as well as an https://circleci.com/integrations/[Integrations Page] containing numerous Certified, Partner, and community orbs / integrations.
 
@@ -241,9 +243,13 @@ jobs:
           webhook: # WEBHOOK
 ----
 
-2+| Using conditional steps in the workflow. CircleCI offers https://circleci.com/docs/configuration-reference/#the-when-attribute[basic conditions on steps] (for example, `on_success` [default], +
-`on_success`, `on_failure`) as well as https://circleci.com/docs/configuration-reference/#the-when-step[conditional steps] based on parameters. We also have https://circleci.com/docs/reusing-config/#using-the-parameters-declaration[conditional jobs], and +
-currently conditional, parameterized workflows and pipelines https://github.com/CircleCI-Public/api-preview-docs/blob/master/docs/conditional-workflows.md[are in preview].
+2+a| Using conditional steps in the workflow. CircleCI offers the following:
+
+* xref:configuration-reference#the-when-attribute[Basic conditions on steps, using the `when` attribute] (for example, `on_success` [default], +
+`always`, `on_failure`).
+* https://circleci.com/docs/configuration-reference/#the-when-step[Conditional steps] based on parameters.
+* https://circleci.com/docs/reusing-config/#using-the-parameters-declaration[Conditional jobs].
+* Conditional, parameterized xref:workflows#use-conditional-logic-in-workflows[workflows].
 
 a|
 [source, yaml]

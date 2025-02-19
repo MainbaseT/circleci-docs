@@ -5,8 +5,7 @@ description: "A introductory guide to the various ways to persist data in Circle
 contentTags:
   platform:
   - Cloud
-  - Server v4.x
-  - Server v3.x
+  - Server v4+
 ---
 
 This guide gives an introductory overview of the various ways to persist and optimize data within and beyond your CircleCI builds. There are a number of ways to move data into, out of, and between jobs, persisting data for future use. Using the right feature for the right task will help speed up your builds, and improve repeatability and efficiency.
@@ -151,9 +150,9 @@ Network charges apply when an organization has runner network egress beyond the 
 
 Storage charges apply when you retain artifacts, workspaces, and caches beyond the included storage GB allotment.
 
-You can find out how much network and storage usage is available on your plan by visiting the features section of the [Pricing](https://circleci.com/pricing/) page. If you would like more details about credit usage, and how to calculate your potential network and storage costs, visit the billing section on the [FAQ](/docs/faq/#how-do-I-calculate-my-monthly-storage-and-network-costs) page.
+You can find out how much network and storage usage is available on your plan by visiting the features section of the [Pricing](https://circleci.com/pricing/) page. If you would like more details about credit usage, and how to calculate your potential network and storage costs, visit the billing section on the [FAQ](/docs/faq/#calculate-monthly-storage-and-network-costs) page.
 
-For questions on data usage for the IP ranges feature, visit the [FAQ](/docs/faq/#how-do-I-calculate-my-monthly-IP-ranges-costs) page.
+For questions on data usage for the IP ranges feature, visit the [FAQ](/docs/faq/#calculate-monthly-IP-ranges-costs) page.
 
 ### Reducing excess use of network egress and storage
 {: #reducing-excess-use-of-network-egress-and-storage }
@@ -170,4 +169,3 @@ Billing for storage can be minimized by evaluating your storage needs and settin
 - [Artifacts](/docs/artifacts)
 - [IP Ranges](/docs/ip-ranges/)
 - [Optimizations Overview](/docs/optimizations)
-- [Persisting Data in Workflows: When to Use Caching, Artifacts, and Workspaces](https://circleci.com/blog/persisting-data-in-workflows-when-to-use-caching-artifacts-and-workspaces/)

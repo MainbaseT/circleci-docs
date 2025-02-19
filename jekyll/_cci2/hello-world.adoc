@@ -2,8 +2,7 @@
 contentTags:
   platform:
     - Cloud
-    - Server v4.x
-    - Server v3.x
+    - Server v4+
 sectionTags:
   cloud:
     - "#echo-hello-world-cloud"
@@ -38,7 +37,7 @@ These examples adds a job called `hello-job` that prints `hello world` to the co
 
 [.tab.hellocloud.Docker]
 --
-The job `hello-job` spins up a container running a link:/docs/circleci-images/#nodejs[pre-built CircleCI Docker image for Node]. Refer to link:/docs/using-docker[Using the Docker execution environment] page for more information.
+The job `hello-job` spins up a container running a link:/docs/circleci-images/#node-js[pre-built CircleCI Docker image for Node]. Refer to link:/docs/using-docker[Using the Docker execution environment] page for more information.
 
 [source,yaml]
 ----
@@ -61,7 +60,7 @@ workflows:
 
 [.tab.hellocloud.Linux_VM]
 --
-The job `hello-job` spins up a linux vir†ual machine running a link:https://circleci.com/developer/images?imageType=machine[Ubuntu machine image]. Refer to link:/docs/using-linuxvm[Using the Linux VM execution environment] page for more information.
+The job `hello-job` spins up a Linux vir†ual machine running a link:https://circleci.com/developer/images?imageType=machine[Ubuntu machine image]. Refer to link:/docs/using-linuxvm[Using the Linux VM execution environment] page for more information.
 
 [source,yaml]
 ----
@@ -93,7 +92,8 @@ version: 2.1
 jobs:
   hello-job:
     macos:
-      xcode: 13.4.1
+      xcode: 15.4.0
+    resource_class: m2pro.medium
     steps:
       - checkout # check out the code in the project directory
       - run: echo "hello world" # run the `echo` command
@@ -136,7 +136,7 @@ workflows:
 
 [.tab.hellocloud.GPU]
 --
-NOTE: The GPU execution environment is available on the link:https://circleci.com/pricing/[Scale] plan.
+NOTE: The GPU execution environment is available on the link:https://circleci.com/pricing/[Scale] Plan.
 
 The job `hello-job` spins up a GPU-enabled virtual machine using the machine executor. GPU images are available for link:/docs/configuration-reference#available-windows-gpu-image[Windows] and link:/docs/configuration-reference#available-linux-gpu-images[Linux]. Refer to link:/docs/using-gpu[Using the GPU execution environment] page for more information.
 
@@ -197,7 +197,7 @@ These examples add a job called `hello-job` that prints `hello world` to the con
 
 [.tab.helloserver4.Docker]
 --
-The job `hello-job` spins up a container running a link:/docs/circleci-images/#nodejs[pre-built CircleCI Docker image for Node]. Refer to link:/docs/using-docker[Using the Docker execution environment] page for more information.
+The job `hello-job` spins up a container running a link:/docs/circleci-images/#node-js[pre-built CircleCI Docker image for Node]. Refer to link:/docs/using-docker[Using the Docker execution environment] page for more information.
 
 [source,yaml]
 ----
@@ -220,7 +220,7 @@ workflows:
 
 [.tab.helloserver4.Linux_VM]
 --
-The job `hello-job` spins up a linux vir†ual machine running a link:https://circleci.com/developer/images?imageType=machine[Ubuntu machine image]. Refer to link:/docs/using-linuxvm[Using the Linux VM execution environment] page for more information.
+The job `hello-job` spins up a Linux vir†ual machine running a link:https://circleci.com/developer/images?imageType=machine[Ubuntu machine image]. Refer to link:/docs/using-linuxvm[Using the Linux VM execution environment] page for more information.
 
 [source,yaml]
 ----
